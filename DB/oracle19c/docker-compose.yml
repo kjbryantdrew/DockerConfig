@@ -1,0 +1,25 @@
+version: '3.3'
+networks:
+  ggs:
+    external: true
+services:
+  oracle-19c:
+    image: banglamon/oracle193db:19.3.0-ee
+    container_name: oracle-19c
+    hostname: oracle-19c
+    environment:
+      ORACLE_SID: CBS
+      ORACLE_PDB: CBSPDB
+      ORACLE_PWD: oracle
+      NLS_CALENDAR: GREGORIAN
+      NLS_DATE_FORMAT: "YYYY-MM-DD HH24:MI:SS"
+      NLS_DATE_LANGUAGE: "ENGLISH"
+      NLS_LANG: "AMERICAN_AMERICA.UTF8"
+      TZ: "Asia/Shanghai"
+    volumes:
+      - /data/oradata:/u01/app/oracle/oradata
+      - /data/orascripts:/home/oracle/orascripts
+    ports:
+      - 1521:1521
+    networks:
+      - ggs
